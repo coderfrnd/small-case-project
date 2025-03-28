@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import Card from "./Component/Card";
 import Navbar from "./Component/Navbar";
-import SideBar from "./Component/SideBar";
 import SubscriptionFilter from "./Component/Functions/SubscriptionFilter";
+import Discover from "./Component/Discover";
+import Filter from "./Component/Filter";
+import Background from "./Component/Background";
 
 const App = () => {
   const [data, setdata] = useState(SubscriptionFilter("all"));
@@ -11,11 +12,12 @@ const App = () => {
     setdata(stocksData);
   }
   return (
-    <div className=" w-full bg-white ">
+    <div className=" relative  w-full bg-white  h-full ">
       <Navbar />
-      <div className="grid grid-cols-[30%_70%]">
-        <SideBar filterSubs={handleClick} />
-        <Card data={data} />
+      <div className="mt-[88px] flex justify-center flex-col items-center">
+        <Discover />
+        <Filter />
+        <Background />
       </div>
     </div>
   );
