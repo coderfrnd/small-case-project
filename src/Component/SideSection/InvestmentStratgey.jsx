@@ -1,42 +1,27 @@
 import React, { useContext, useEffect, useState } from "react";
 import LaunchDate from "./LaunchDate";
 import { StrategyData } from "../../App";
-import CombineStratgey from "../Functions/InvestmentStratgeyFunction";
+import { stratgeyList } from "../Functions/FindStratgeyList";
 
 const InvestmentStratgey = () => {
-  const [applyStratgey, setApplyStratgey] = useState([]);
-  const investmentStrategies = [
-    "Asset Allocation",
-    "Corporate Governance",
-    "Dividend",
-    "ESG",
-    "Factor Investing",
-    "Fundamental",
-    "Goal Based",
-    "Growth",
-    "Momentum",
-    "Quality",
-    "Quantamental",
-    "Quantitative",
-    "Sector Tracker",
-    "Technical",
-    "Thematic",
-    "Value",
-  ];
+  let { setfilterMethod, filterMethod } = useContext(StrategyData);
 
-  let { setData, strategySet, setStrategySet } = useContext(StrategyData);
+  function handleInvestmentStratgey(val) {
+    setfilterMethod((prev) => {
+      let arr = prev.InvestmentStrategy || [];
+      // console.log(arr, "jj");
+      // console.log(arr.includes(val));
+      // console.log(val);
 
-  function handleStartgey(ind) {
-    let result = applyStratgey.find((ele) => ele == investmentStrategies[ind]);
-    if (result)
-      setApplyStratgey(
-        applyStratgey.filter((ele) => ele != investmentStrategies[ind])
-      );
-    else setApplyStratgey([...applyStratgey, investmentStrategies[ind]]);
+      let newArray = arr.includes(val)
+        ? arr.filter((ele) => ele !== val)
+        : [...arr, val];
+      console.log("Updated Array:", newArray);
+      return { ...prev, InvestmentStrategy: newArray };
+    });
   }
-  useEffect(() => {
-    CombineStratgey(setStrategySet, strategySet, applyStratgey, setData);
-  }, [applyStratgey]);
+
+  const investmentStrategies = stratgeyList();
   return (
     <>
       {investmentStrategies.map((ele, ind) => {
@@ -44,8 +29,8 @@ const InvestmentStratgey = () => {
           <LaunchDate
             under={ele}
             key={ind}
-            handleStartgey={handleStartgey}
             ind={ind}
+            handleStartgey={handleInvestmentStratgey}
           />
         );
       })}

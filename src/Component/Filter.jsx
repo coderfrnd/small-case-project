@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import { StrategyData } from "../App";
 
-const Filter = ({ popularity }) => {
+const Filter = () => {
+  let { setfilterMethod, filterMethod } = useContext(StrategyData);
+  function handlePopularity() {
+    // console.log("haa");
+    setfilterMethod((prev) => ({ ...prev, popualarity: !prev.popualarity }));
+  }
   return (
     <div className="w-[70%] mt-[16px] border-b border-gray-300 flex justify-between text-gray-600">
       <div className="flex space-x-8 text-[17px] font-[450] pb-[16px]">
@@ -22,8 +28,8 @@ const Filter = ({ popularity }) => {
             tabIndex={0}
             className="dropdown-content menu bg-base-100 rounded-box z-1 w-[220px] p-2 shadow-sm"
           >
-            <li className="flex">
-              <span onClick={() => popularity()}>Popularity </span>
+            <li className="flex" onClick={handlePopularity}>
+              <span>Popularity </span>
             </li>
             <li>
               <span>Minimum Amount</span>

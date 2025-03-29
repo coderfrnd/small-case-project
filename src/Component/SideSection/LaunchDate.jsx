@@ -7,11 +7,16 @@ const LaunchDate = ({ props, under, ruppess, handleStartgey, ind }) => {
         <li className="flex space-x-2">
           <input
             type="checkbox"
-            onClick={(e) => handleStartgey(ind)}
+            id={ind}
+            onClick={(e) => handleStartgey(under)}
             className="h-[15px] w-[15px] border border-gray-200 mt-1 ml-1"
           />
-          <p className="text-[14px] text-gray-500 font-medium">{under}</p>
-          <p className="text-[14px] text-gray-500 font-medium">{ruppess}</p>
+          <label htmlFor={ind}>
+            <p className="text-[14px] text-gray-500 font-medium cursor-pointer  ">
+              {under}
+            </p>
+            <p className="text-[14px] text-gray-500 font-medium">{ruppess}</p>
+          </label>
         </li>
       </ul>
     </div>

@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import SmallCaseCard from "./ListedCard/SmallCaseCard";
-import Spinner from "./ListedCard/Loader";
 import LogoURL from "../JSON /LogoUrl";
-// let data = stocks.data;
 const CardHolder = ({ data }) => {
-  // console.log(Array.from(data));
   if (!data) data = [];
-
   return (
     <>
-      <div className="w-[100%] h-full  space-y-2 flex flex-col justify-center items-center">
+      <div className="w-[100%] h-full  space-y-2 flex flex-col items-center">
         {data.map((ele, ind) => {
           let valatility = ele.stats.ratios.riskLabel;
           let minInvestment = ele.stats.minInvestAmount;
