@@ -1,13 +1,13 @@
 import React from "react";
-import SideSectionFilter from "./SideSectionFilter";
+import SideSectionFilter from "./SideSection/SideSectionFilter";
 import CardHolder from "./CardHolder";
 
-const Background = () => {
+const Background = ({ data }) => {
   return (
     <>
       <div className="w-[70%] mt-[32px] grid grid-cols-[25%_75%] gap-0">
         <SideSectionFilter />
-        <CardHolder />
+        <CardHolder data={data} />
       </div>
     </>
   );

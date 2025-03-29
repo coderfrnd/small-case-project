@@ -1,57 +1,48 @@
 import React from "react";
-import LogoUrl from "../../JSON /LogoUrl";
 
 const SmallCaseCard = ({
   heading,
   fundLogo,
-  decription,
+  description,
   author,
   volatility,
   minInvestmentAmount,
   cagr,
 }) => {
   return (
-    <>
-      <article className="  w-[100%] border-b border-gray-300 hover:shadow-md bg-amber-50 flex text-gray-600 mt-2 mb-2 ">
-        <section className="pl-2 pt-4 pr-6">
-          <h1 className="h-[64px] w-[64px] ">
-            {" "}
-            <img src={fundLogo} alt="" />
-          </h1>
-        </section>
-        <section className="flex pb-5 pt-4">
-          <div className="flex flex-col w-[450px]">
-            <div className="flex">
-              <h2 className="text-[18px] font-semibold  text-black pt-0">
-                {heading}
-              </h2>
-              <span></span>
-            </div>
-            <span className="pt-2 pr-3 text-[15px] font-[500] ">
-              {decription}
+    <article className="w-full max-w-[1300px] border-b border-gray-300 hover:shadow-md bg-white flex text-gray-600 mt-2 mb-4 mx-auto">
+      <section className=" pt-4 pl-2">
+        <img src={fundLogo} alt="Fund Logo" className="h-16 w-16" />
+      </section>
+      <section className="flex flex-1 justify-between items-center p-4">
+        <div className="flex flex-col w-[50%]">
+          <h2 className="text-lg font-semibold text-black">{heading}</h2>
+          <span className="pt-1 text-[15px] text-black">{description}</span>
+          <span className="pt-1 text-sm text-gray-500">by {author}</span>
+        </div>
+        <div className="flex justify-evenly items-center w-[50%]">
+          <div className="flex flex-col text-center">
+            <span className="text-gray-600 text-[15px] font-medium">
+              Min. Amount
             </span>
-            <span className="pt-2"> by {author}</span>
+            <span className="text-black text-[16px] font-semibold">
+              ₹{minInvestmentAmount}
+            </span>
           </div>
-          <div className="flex pt-8 pl-6 pb-6">
-            <section className="flex flex-col  pb-2  space-y-2 ">
-              <span className=" pr-6 text-[15px] font-medium ">Min.Amount</span>
-              <span className=" text-[16px] text-black ">
-                {minInvestmentAmount}
-              </span>
-            </section>
-            <section className="flex flex-col font-medium pb-2 space-y-2">
-              <span className=" pr-6 text-[15px] text-gray-600 text-nowrap">
-                3Y CAGR
-              </span>
-              <span className=" text-[16px] text-green-600 ">{cagr} %</span>
-            </section>
-            <button className=" cursor-pointer  px-9 border-[1px] border-gray-300 mx-4 my-4">
-              {volatility}
-            </button>
+          <div className="flex flex-col text-center">
+            <span className="text-gray-600 text-[15px] font-medium">
+              3Y CAGR
+            </span>
+            <span className="text-green-600 text-[16px] font-semibold">
+              {cagr}%
+            </span>
           </div>
-        </section>
-      </article>
-    </>
+          <button className="px-6 py-1 border border-gray-300 rounded-md">
+            {volatility}
+          </button>
+        </div>
+      </section>
+    </article>
   );
 };
 
