@@ -7,6 +7,16 @@ const Filter = () => {
     // console.log("haa");
     setfilterMethod((prev) => ({ ...prev, popualarity: !prev.popualarity }));
   }
+  function handleSortingBasedOnMinimumAmount() {
+    setfilterMethod((prev) => ({
+      ...prev,
+      minimumAmount: !prev.minimumAmount,
+    }));
+  }
+  function handleCagrYear(year) {
+    setfilterMethod((prev) => ({ ...prev, cagrYear: year }));
+  }
+
   return (
     <div className="w-[70%] mt-[16px] border-b border-gray-300 flex justify-between text-gray-600">
       <div className="flex space-x-8 text-[17px] font-[450] pb-[16px]">
@@ -31,7 +41,7 @@ const Filter = () => {
             <li className="flex" onClick={handlePopularity}>
               <span>Popularity </span>
             </li>
-            <li>
+            <li onClick={handleSortingBasedOnMinimumAmount}>
               <span>Minimum Amount</span>
             </li>
             <li>
@@ -39,11 +49,36 @@ const Filter = () => {
             </li>
             <span className="w-[100%] pl-3 font-bold mt-2">Time Period </span>
             <div className="w-[170px] cursor-pointer rounded ml-3 h-[20%]  font-medium flex border border-gray-200 p-1 mt-2 mb-2 justify-between">
-              <span className="hover:bg-gray-200  ">1M</span>
-              <span className="hover:bg-gray-200">6M</span>
-              <span className="hover:bg-gray-200">1Y</span>
-              <span className="hover:bg-gray-200">2Y</span>
-              <span className="hover:bg-gray-200">3Y</span>
+              <span
+                className="hover:bg-gray-200"
+                onClick={() => handleCagrYear(1)}
+              >
+                1M
+              </span>
+              <span
+                className="hover:bg-gray-200"
+                onClick={() => handleCagrYear(1)}
+              >
+                6M
+              </span>
+              <span
+                className="hover:bg-gray-200"
+                onClick={() => handleCagrYear(1)}
+              >
+                1Y
+              </span>
+              <span
+                className="hover:bg-gray-200"
+                onClick={() => handleCagrYear(2)}
+              >
+                2Y
+              </span>
+              <span
+                className="hover:bg-gray-200"
+                onClick={() => handleCagrYear(3)}
+              >
+                3Y
+              </span>
             </div>
           </ul>
         </div>

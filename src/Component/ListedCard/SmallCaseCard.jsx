@@ -8,6 +8,7 @@ const SmallCaseCard = ({
   volatility,
   minInvestmentAmount,
   cagr,
+  year,
 }) => {
   return (
     <article className="w-full max-w-[1300px] border-b border-gray-300 hover:shadow-md bg-white flex text-gray-600 mt-2 mb-4 mx-auto">
@@ -31,7 +32,7 @@ const SmallCaseCard = ({
           </div>
           <div className="flex flex-col text-center">
             <span className="text-gray-600 text-[15px] font-medium">
-              3Y CAGR
+              {year}Y CAGR
             </span>
             <span className="text-green-600 text-[16px] font-semibold">
               {cagr}%

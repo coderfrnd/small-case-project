@@ -64,10 +64,8 @@ export default function FilterMethods(filterList) {
   arr = Volatility(filterList.Volatility, arr);
   console.log(filterList.InvestmentStrategy);
   arr = InvestmentStragecy(filterList.InvestmentStrategy, arr);
-  console.log(arr);
-
   if (filterList.popualarity) Popularity(arr);
-
+  if (filterList.minimumAmount) MinimumAmountSorting(arr);
   arr.forEach((ele) => {
     answer.add(ele);
   });

@@ -8,12 +8,13 @@ import FilterMethods from "./Component/Functions/FilterMethod";
 const StrategyData = createContext();
 let filterStratgey = {
   subs: null,
-  InvestmentAmount: null,
+  InvestmentAmount: 0,
   Volatility: new Set(),
   LaunchDate: [],
   InvestmentStrategy: [],
   popualarity: false,
   minimumAmount: false,
+  cagrYear: 3,
 };
 const App = () => {
   const [filterMethod, setfilterMethod] = useState(filterStratgey);

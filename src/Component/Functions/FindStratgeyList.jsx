@@ -14,3 +14,6 @@ export function stratgeyList() {
 
   return Array.from(newSetForList);
 }
+export function calculateCAGR(initialValue, finalValue, years) {
+  return ((finalValue / initialValue) ** (1 / years) - 1) * 100;
+}
