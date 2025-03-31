@@ -13,6 +13,7 @@ function InvestmentAmount(price, otherFilterData) {
   if (price == null || price == 0) return otherFilterData;
   return otherFilterData.filter((ele) => {
     let stats = ele.stats;
+    // console.log(stats.minInvestAmount);
     if (stats.minInvestAmount <= price) {
       return true;
     }
@@ -53,7 +54,29 @@ function Popularity(dataArray) {
 function MinimumAmountSorting(dataArray) {
   dataArray.sort((a, b) => a.stats.minInvestAmount - b.stats.minInvestAmount);
 }
-
+function SortingBasedOnrecentlyRebalanced(dataArray) {
+  dataArray.sort(
+    (a, b) => new Date(b.info.lastRebalanced) - new Date(a.info.lastRebalanced)
+  );
+}
+function IncludeNewSmallCase(dataArray, specificTime) {
+  return dataArray.filter((ele) => {
+    let launchDate = ele.info.created;
+    console.log(launchDate);
+    let date = new Date(launchDate);
+    return date.getTime() >= new Date(specificTime).getTime();
+  });
+}
+function LowToHigh(dataArray, type, basedOnReturns) {
+  dataArray.sort(
+    (a, b) => a.stats.returns[basedOnReturns] - b.stats.returns[basedOnReturns]
+  );
+}
+function HighToLow(dataArray, type, basedOnReturns) {
+  dataArray.sort(
+    (a, b) => b.stats.returns[basedOnReturns] - a.stats.returns[basedOnReturns]
+  );
+}
 export default function FilterMethods(filterList) {
   let arr = data;
   let answer = new Set();
@@ -62,10 +85,16 @@ export default function FilterMethods(filterList) {
   }
   arr = InvestmentAmount(filterList.InvestmentAmount, arr);
   arr = Volatility(filterList.Volatility, arr);
-  console.log(filterList.InvestmentStrategy);
   arr = InvestmentStragecy(filterList.InvestmentStrategy, arr);
   if (filterList.popualarity) Popularity(arr);
   if (filterList.minimumAmount) MinimumAmountSorting(arr);
+  if (filterList.recentlyRebalanced) SortingBasedOnrecentlyRebalanced(arr);
+  if (filterList.includeNewSmallcase)
+    arr = IncludeNewSmallCase(arr, "2023-01-01");
+  // if (filterList.lowToHigh)
+  //   LowToHigh(arr, filterList.lowToHigh, filterList.cagrYear);
+  // else HighToLow(arr, filterList.lowToHigh, filterList.cagrYear);
+
   arr.forEach((ele) => {
     answer.add(ele);
   });

@@ -4,18 +4,34 @@ import InvestmentStratgey from "./InvestmentStratgey";
 import SubscriptionSection from "./Subscription";
 import InvestmentAmount from "./InvestmentAmount";
 import VolatilitySection from "./VolatilitySection";
+import HeadingStrategy from "./HeadingAndButtons/HeadingStrategy";
+import { StrategyData } from "../../App";
+import FilterCount from "./FilterCount";
 
 const SideSectionFilter = () => {
+  let { setfilterMethod, filterMethod } = useContext(StrategyData);
+  function handleLaunchDate() {
+    setfilterMethod((prev) => ({
+      ...prev,
+      includeNewSmallcase: !prev.includeNewSmallcase,
+    }));
+  }
   return (
     <>
       <aside className="w-[100%] text-black ">
         <section className="">
+          <FilterCount />
           <SubscriptionSection />
           <InvestmentAmount />
           <VolatilitySection />
-          <HeadingForStrategy props={"Launch Date"} />
-          <LaunchDate under={"Include all new small case"} />
-          <HeadingForStrategy props={"Investment Stratgey"} />
+          <HeadingStrategy props={"Launch Date"} />
+          <LaunchDate
+            under={"Include all new small case"}
+            handleStartgey={handleLaunchDate}
+            ind={"launchDate"}
+            checked={filterMethod.includeNewSmallcase}
+          />
+          <HeadingStrategy props={"Investment Stratgey"} />
           <InvestmentStratgey />
         </section>
       </aside>

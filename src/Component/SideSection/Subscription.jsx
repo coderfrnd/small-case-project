@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import HeadingStrategy from "./HeadingAndButtons/HeadingStrategy";
 import SubscriptionButtons from "./HeadingAndButtons/SubscriptionButton";
-
+import { StrategyData } from "../../App";
 const subscriptionList = ["Show All", "Free Access", "Fee Based"];
-const SubscriptionSection = ({ setfilterMethod }) => {
+const SubscriptionSection = () => {
+  let { setfilterMethod, filterMethod } = useContext(StrategyData);
   function handleSubscriptionClick(type) {
     setfilterMethod((prev) => ({
       ...prev,

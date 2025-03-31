@@ -9,14 +9,9 @@ const InvestmentStratgey = () => {
   function handleInvestmentStratgey(val) {
     setfilterMethod((prev) => {
       let arr = prev.InvestmentStrategy || [];
-      // console.log(arr, "jj");
-      // console.log(arr.includes(val));
-      // console.log(val);
-
       let newArray = arr.includes(val)
         ? arr.filter((ele) => ele !== val)
         : [...arr, val];
-      console.log("Updated Array:", newArray);
       return { ...prev, InvestmentStrategy: newArray };
     });
   }
@@ -25,12 +20,16 @@ const InvestmentStratgey = () => {
   return (
     <>
       {investmentStrategies.map((ele, ind) => {
+        let checked = filterMethod.InvestmentStrategy.find(
+          (stratgey) => ele == stratgey
+        );
         return (
           <LaunchDate
             under={ele}
             key={ind}
             ind={ind}
             handleStartgey={handleInvestmentStratgey}
+            checked={checked}
           />
         );
       })}

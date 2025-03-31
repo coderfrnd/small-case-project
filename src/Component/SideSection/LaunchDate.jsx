@@ -1,6 +1,13 @@
 import React from "react";
 
-const LaunchDate = ({ props, under, ruppess, handleStartgey, ind }) => {
+const LaunchDate = ({
+  props,
+  under,
+  ruppess,
+  handleStartgey,
+  ind,
+  checked = false,
+}) => {
   return (
     <div className="mt-1 cursor-pointer  pl-0 hover:bg-gray-200 w-[70%] p-1 rounded ">
       <ul className="">
@@ -8,7 +15,8 @@ const LaunchDate = ({ props, under, ruppess, handleStartgey, ind }) => {
           <input
             type="checkbox"
             id={ind}
-            onClick={(e) => handleStartgey(under)}
+            onChange={() => handleStartgey(under)}
+            checked={checked}
             className="h-[15px] w-[15px] border border-gray-200 mt-1 ml-1"
           />
           <label htmlFor={ind}>

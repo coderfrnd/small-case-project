@@ -1,11 +1,13 @@
 import React from "react";
-import SideSectionFilter from "./SideSection/SideSectionFilter";
 import CardHolder from "./CardHolder";
+import SideSectionFilter from "../SideSection/SideSectionFilter";
+import FilterMethods from "../Functions/FilterMethod";
 
 const Background = ({ data }) => {
   return (
     <>
-      <div className="w-[70%] mt-[32px] grid grid-cols-[22%_78%] gap-0">
+      {/* <FilterMethods */}
+      <div className="w-[62%] mt-[32px] grid grid-cols-[22%_73%] gap-[5%]">
         <SideSectionFilter />
         <CardHolder data={data} />
       </div>

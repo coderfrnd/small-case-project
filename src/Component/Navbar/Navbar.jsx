@@ -1,13 +1,13 @@
 import React from "react";
-import logo from "../JSON /logo.svg";
-import kite from "../JSON /kite-logo.svg";
+import logo from "../../JSON /logo.svg";
+import kite from "../../JSON /kite-logo.svg";
 
 const Navbar = () => {
   return (
     <>
       <div className="fixed top-0 left-0 w-full h-[56px] bg-white shadow-md  transition-all duration-150 ease-in-out">
         <header className="flex justify-center w-full ">
-          <nav className="flex items-center justify-between w-[70%] ">
+          <nav className="flex items-center justify-between w-[62%] ">
             <div className="flex justify-center text-black  mt-[16px] text-[14px]">
               <h1 className="mr-[28px]">
                 <img src={logo} alt="" />

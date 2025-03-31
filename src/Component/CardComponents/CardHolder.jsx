@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import SmallCaseCard from "./ListedCard/SmallCaseCard";
-import LogoURL from "../JSON /LogoUrl";
-import { StrategyData } from "../App";
-import { calculateCAGR } from "./Functions/FindStratgeyList";
+import SmallCaseCard from "../ListedCard/SmallCaseCard";
+import LogoURL from "../../JSON /LogoUrl";
+import { StrategyData } from "../../App";
+import { cagrCalculate } from "../Functions/FindStratgeyList";
 const CardHolder = ({ data }) => {
   if (!data) data = [];
   let { setfilterMethod, filterMethod } = useContext(StrategyData);
@@ -12,15 +12,13 @@ const CardHolder = ({ data }) => {
         {data.map((ele, ind) => {
           let valatility = ele.stats.ratios.riskLabel;
           let minInvestment = ele.stats.minInvestAmount;
-          // let cagr = ele.platformData.ratios.cagr;
-          let initialValue = ele.stats.launchDateIndex;
-          let finalValue = ele.stats.indexValue;
+          minInvestment = minInvestment.toLocaleString("en-IN", {
+            currency: "INR",
+          });
           let year = filterMethod.cagrYear;
-          let calculateCagr = calculateCAGR(
-            initialValue,
-            finalValue,
-            year
-          ).toFixed(2);
+          let cagr = cagrCalculate(ele, year);
+          cagr = cagr * 100;
+          cagr = cagr.toFixed(2);
           return (
             <SmallCaseCard
               heading={ele.info.name}
@@ -29,7 +27,7 @@ const CardHolder = ({ data }) => {
               author={ele.info.creator}
               volatility={valatility}
               minInvestmentAmount={minInvestment}
-              cagr={calculateCagr}
+              cagr={cagr}
               key={ind}
               year={year}
             />
