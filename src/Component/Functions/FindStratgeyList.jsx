@@ -7,6 +7,8 @@ let cagrYearObject = {
   threeYear: 3,
   yearly: 1,
   fiveYear: 5,
+  montly: false,
+  halfYearly: false,
 };
 export function stratgeyList() {
   let newSetForList = new Set();
@@ -48,6 +50,9 @@ export function CalculateFilter(filterList) {
   return x;
 }
 export function cagrCalculate(currentObj, selectedYear) {
+  if (!cagrYearObject[selectedYear]) {
+    return currentObj.stats.returns[selectedYear];
+  }
   let a = 1 + currentObj.stats.returns[selectedYear];
   let b = 1 / cagrYearObject[selectedYear];
   return Math.pow(a, b) - 1;
