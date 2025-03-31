@@ -2,7 +2,12 @@ import React, { useContext, useState } from "react";
 import { StrategyData } from "../../App";
 
 const Filter = () => {
-  let { setfilterMethod, filterMethod } = useContext(StrategyData);
+  let {
+    setfilterMethod,
+    filterMethod,
+    setsortBasedOnCondition,
+    sortBasedOnCondition,
+  } = useContext(StrategyData);
 
   function handlePopularity() {
     setfilterMethod((prev) => ({
@@ -10,6 +15,12 @@ const Filter = () => {
       minimumAmount: false,
       popualarity: true,
       recentlyRebalanced: false,
+    }));
+    setsortBasedOnCondition((prev) => ({
+      ...prev,
+      active: false,
+      sortMethod: "High",
+      activeSortingWay: "Popularity",
     }));
   }
   function handleSortingBasedOnMinimumAmount() {
@@ -19,9 +30,21 @@ const Filter = () => {
       popualarity: false,
       recentlyRebalanced: false,
     }));
+    setsortBasedOnCondition((prev) => ({
+      ...prev,
+      active: false,
+      sortMethod: "High",
+      activeSortingWay: "Min Investment Amount",
+    }));
   }
   function handleCagrYear(year) {
     setfilterMethod((prev) => ({ ...prev, cagrYear: year }));
+    setsortBasedOnCondition((prev) => ({
+      ...prev,
+      active: true,
+      sortMethod: "High",
+      activeSortingWay: "Cagr",
+    }));
   }
   function handleRecentlyRebalanced() {
     setfilterMethod((prev) => ({
@@ -29,6 +52,18 @@ const Filter = () => {
       recentlyRebalanced: true,
       minimumAmount: false,
       popualarity: false,
+    }));
+    setsortBasedOnCondition((prev) => ({
+      ...prev,
+      active: false,
+      sortMethod: "High",
+      activeSortingWay: "Recently Rebalanced",
+    }));
+  }
+  function activeSortingBasedOnCagr(value) {
+    setsortBasedOnCondition((prev) => ({
+      ...prev,
+      sortMethod: value,
     }));
   }
 
@@ -46,7 +81,7 @@ const Filter = () => {
             role="button"
             className="pt-1 border-none cursor-pointer px-3 flex justify-between"
           >
-            <span>Sort By Popularity</span>
+            <span>{sortBasedOnCondition.activeSortingWay} </span>
             <span>^</span>
           </div>
           <ul
@@ -106,10 +141,16 @@ const Filter = () => {
               </span>
             </div>
             <div className="w-[180px] cursor-pointer rounded ml-3 h-[20%]  font-medium flex  p-1 mt-2 mb-2 justify-between text-[11px] ">
-              <span className="border border-gray-200 px-[10px] py-1">
+              <span
+                className="border border-gray-200 px-[10px] py-1"
+                onClick={() => activeSortingBasedOnCagr("High")}
+              >
                 High To Low
               </span>
-              <span className="border border-gray-200 px-[10px] py-1">
+              <span
+                className="border border-gray-200 px-[10px] py-1"
+                onClick={() => activeSortingBasedOnCagr("Low")}
+              >
                 Low To High
               </span>
             </div>

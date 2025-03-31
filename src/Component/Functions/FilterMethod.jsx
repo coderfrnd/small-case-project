@@ -67,17 +67,7 @@ function IncludeNewSmallCase(dataArray, specificTime) {
     return date.getTime() >= new Date(specificTime).getTime();
   });
 }
-function LowToHigh(dataArray, type, basedOnReturns) {
-  dataArray.sort(
-    (a, b) => a.stats.returns[basedOnReturns] - b.stats.returns[basedOnReturns]
-  );
-}
-function HighToLow(dataArray, type, basedOnReturns) {
-  dataArray.sort(
-    (a, b) => b.stats.returns[basedOnReturns] - a.stats.returns[basedOnReturns]
-  );
-}
-export default function FilterMethods(filterList) {
+export default function ApplyFilterMethods(filterList) {
   let arr = data;
   let answer = new Set();
   if (filterList.subs == true || filterList.subs == false) {
@@ -91,10 +81,6 @@ export default function FilterMethods(filterList) {
   if (filterList.recentlyRebalanced) SortingBasedOnrecentlyRebalanced(arr);
   if (filterList.includeNewSmallcase)
     arr = IncludeNewSmallCase(arr, "2023-01-01");
-  // if (filterList.lowToHigh)
-  //   LowToHigh(arr, filterList.lowToHigh, filterList.cagrYear);
-  // else HighToLow(arr, filterList.lowToHigh, filterList.cagrYear);
-
   arr.forEach((ele) => {
     answer.add(ele);
   });

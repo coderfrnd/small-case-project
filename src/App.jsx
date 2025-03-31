@@ -3,8 +3,11 @@ import Navbar from "./Component/Navbar/Navbar";
 import Filter from "./Component/CardComponents/Filter";
 import Discover from "./Component/CardComponents/Discover";
 import Background from "./Component/CardComponents/Background";
-import FilterMethods from "./Component/Functions/FilterMethod";
-import { CalculateFilter } from "./Component/Functions/FindStratgeyList";
+import {
+  CalculateFilter,
+  SortingBasedOnConditionFunction,
+} from "./Component/Functions/FindStratgeyList";
+import ApplyFilterMethods from "./Component/Functions/FilterMethod";
 
 const StrategyData = createContext();
 let filterStratgey = {
@@ -13,27 +16,43 @@ let filterStratgey = {
   Volatility: new Set(),
   LaunchDate: [],
   InvestmentStrategy: [],
-  popualarity: false,
+  popualarity: true,
   minimumAmount: false,
   cagrYear: "threeYear",
   recentlyRebalanced: false,
   includeNewSmallcase: false,
 };
-
 const App = () => {
   const [filterMethod, setfilterMethod] = useState(filterStratgey);
-  let data = FilterMethods(filterMethod);
+  const [sortBasedOnCondition, setsortBasedOnCondition] = useState({
+    sortMethod: null,
+    active: false,
+    activeSortingWay: "Popularity",
+  });
+  let data = ApplyFilterMethods(filterMethod);
   let calculateFilter = CalculateFilter(filterMethod);
+  data = SortingBasedOnConditionFunction(
+    data,
+    sortBasedOnCondition,
+    filterMethod.cagrYear
+  );
   return (
     <StrategyData.Provider
-      value={{ setfilterMethod, filterMethod, calculateFilter, filterStratgey }}
+      value={{
+        setfilterMethod,
+        filterMethod,
+        calculateFilter,
+        filterStratgey,
+        setsortBasedOnCondition,
+        sortBasedOnCondition,
+      }}
     >
       <div className="relative w-full bg-white h-full">
         <Navbar />
         <div className="mt-[88px] flex justify-center flex-col items-center">
           <Discover />
           <Filter />
-          <Background data={Array.from(data)} />
+          <Background data={data} />
         </div>
       </div>
     </StrategyData.Provider>
