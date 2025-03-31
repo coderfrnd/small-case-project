@@ -1,6 +1,5 @@
-import AllData from "./FindStratgeyList";
+import AllData from "./FindStratgeyList.js";
 let data = AllData();
-let answer = new Set();
 function findSubscription(typeOfSubscription) {
   if (typeOfSubscription[0] == "Show All") return data;
   let value = typeOfSubscription[0] == "Fee Based" ? true : false;
@@ -11,7 +10,7 @@ function findSubscription(typeOfSubscription) {
   });
   return arr;
 }
-function InvestmentAmount(price, otherFilterData) {
+function investmentAmount(price, otherFilterData) {
   if (price == null || price == 0) return otherFilterData;
   return otherFilterData.filter((ele) => {
     let stats = ele.stats;
@@ -21,7 +20,7 @@ function InvestmentAmount(price, otherFilterData) {
     }
   });
 }
-function Volatility(type, otherFilterData) {
+function volatility(type, otherFilterData) {
   // console.log(type);
   if (type.size == 0) return otherFilterData;
   let filters = Array.from(type);
@@ -33,7 +32,7 @@ function Volatility(type, otherFilterData) {
     }
   });
 }
-function InvestmentStragecy(listOfStrategy, otherFilterData) {
+function investmentStragecy(listOfStrategy, otherFilterData) {
   if (listOfStrategy.length === 0) return otherFilterData;
   return otherFilterData.filter((ele) => {
     let stratgeyInvolveInElement = ele.info.investmentStrategy;
@@ -48,20 +47,20 @@ function InvestmentStragecy(listOfStrategy, otherFilterData) {
     if (check) return check;
   });
 }
-function Popularity(dataArray) {
+function popularity(dataArray) {
   dataArray.sort(
     (a, b) => a.brokerMeta.flags.popular.rank - b.brokerMeta.flags.popular.rank
   );
 }
-function MinimumAmountSorting(dataArray) {
+function minimumAmountSorting(dataArray) {
   dataArray.sort((a, b) => a.stats.minInvestAmount - b.stats.minInvestAmount);
 }
-function SortingBasedOnrecentlyRebalanced(dataArray) {
+function sortingBasedOnrecentlyRebalanced(dataArray) {
   dataArray.sort(
     (a, b) => new Date(b.info.lastRebalanced) - new Date(a.info.lastRebalanced)
   );
 }
-function IncludeNewSmallCase(dataArray, specificTime) {
+function includeNewSmallCase(dataArray, specificTime) {
   return dataArray.filter((ele) => {
     let launchDate = ele.info.created;
     console.log(launchDate);
@@ -69,19 +68,19 @@ function IncludeNewSmallCase(dataArray, specificTime) {
     return date.getTime() >= new Date(specificTime).getTime();
   });
 }
-export default function ApplyFilterMethods(filterList) {
+export default function applyFilterMethods(filterList) {
   let arr = data;
   let answer = new Set();
 
   arr = findSubscription(filterList.Subscription);
-  arr = InvestmentAmount(filterList.InvestmentAmount, arr);
-  arr = Volatility(filterList.Volatility, arr);
-  arr = InvestmentStragecy(filterList.InvestmentStrategy, arr);
-  if (filterList.popualarity) Popularity(arr);
-  if (filterList.minimumAmount) MinimumAmountSorting(arr);
-  if (filterList.recentlyRebalanced) SortingBasedOnrecentlyRebalanced(arr);
+  arr = investmentAmount(filterList.InvestmentAmount, arr);
+  arr = volatility(filterList.Volatility, arr);
+  arr = investmentStragecy(filterList.InvestmentStrategy, arr);
+  if (filterList.popualarity) popularity(arr);
+  if (filterList.minimumAmount) minimumAmountSorting(arr);
+  if (filterList.recentlyRebalanced) sortingBasedOnrecentlyRebalanced(arr);
   if (filterList.includeNewSmallcase)
-    arr = IncludeNewSmallCase(arr, "2023-01-01");
+    arr = includeNewSmallCase(arr, "2023-01-01");
   arr.forEach((ele) => {
     answer.add(ele);
   });

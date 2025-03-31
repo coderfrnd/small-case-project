@@ -3,14 +3,12 @@ import { StrategyData } from "../../App";
 
 const Investment = ({ ruppess, under }) => {
   let { setfilterMethod, filterMethod } = useContext(StrategyData);
-
   function handleInvestmentAmount(amount) {
     setfilterMethod((prev) => ({
       ...prev,
       InvestmentAmount: amount,
     }));
   }
-
   return (
     <div className="mt-1 cursor-pointer pl-0 hover:bg-gray-200 w-[70%] p-1 rounded">
       <ul>

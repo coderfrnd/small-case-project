@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import LaunchDate from "./LaunchDate";
 import { StrategyData } from "../../App";
-import { stratgeyList } from "../Functions/FindStratgeyList";
+import { stratgeyList } from "../Utils/FindStratgeyList.js";
 
 const InvestmentStratgey = () => {
   let { setfilterMethod, filterMethod } = useContext(StrategyData);

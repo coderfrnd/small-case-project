@@ -21,7 +21,7 @@ export function stratgeyList() {
 
   return Array.from(newSetForList);
 }
-export function CalculateFilter(filterList) {
+export function calculateFilter(filterList) {
   let count = 0;
   for (let key in filterList) {
     if (
@@ -58,7 +58,7 @@ export function cagrCalculate(currentObj, selectedYear) {
   return Math.pow(a, b) - 1;
 }
 
-export function SortingBasedOnConditionFunction(
+export function sortingBasedOnConditionFunction(
   dataArray,
   sortingConditionObject,
   year
@@ -75,28 +75,3 @@ export function SortingBasedOnConditionFunction(
     );
   }
 }
-
-// for (let key in filterList) {
-//   let value = filterList[key];
-
-//   if (
-//     value === null ||
-//     value === 0 ||
-//     value.size == 0 ||
-//     value.length == 0 ||
-//     key == "popualarity" ||
-//     key == "minimumAmount" ||
-//     key == "cagrYear" ||
-//     key == "recentlyRebalanced" ||
-//     value === false
-//   ) {
-//     continue;
-//   }
-//   if (value instanceof Set) {
-//     x += value.size;
-//   } else if (Array.isArray(value)) {
-//     x += value.length;
-//   } else {
-//     x++;
-//   }
-// }

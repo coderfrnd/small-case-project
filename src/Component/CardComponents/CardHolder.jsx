@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import SmallCaseCard from "../ListedCard/SmallCaseCard";
 import LogoURL from "../../JSON /LogoUrl";
 import { StrategyData } from "../../App";
-import { cagrCalculate } from "../Functions/FindStratgeyList";
+import { cagrCalculate } from "../Utils/FindStratgeyList.js";
 const CardHolder = ({ data }) => {
   if (!data) data = [];
   let { setfilterMethod, filterMethod } = useContext(StrategyData);

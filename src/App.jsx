@@ -4,10 +4,10 @@ import Filter from "./Component/CardComponents/Filter";
 import Discover from "./Component/CardComponents/Discover";
 import Background from "./Component/CardComponents/Background";
 import {
-  CalculateFilter,
-  SortingBasedOnConditionFunction,
-} from "./Component/Functions/FindStratgeyList";
-import ApplyFilterMethods from "./Component/Functions/FilterMethod";
+  calculateFilter,
+  sortingBasedOnConditionFunction,
+} from "./Component/Utils/FindStratgeyList.js";
+import applyFilterMethods from "./Component/Utils/FilterMethod.js";
 
 const StrategyData = createContext();
 let filterStratgey = {
@@ -28,21 +28,19 @@ const App = () => {
     active: false,
     activeSortingWay: "Popularity",
   });
-  let data = ApplyFilterMethods(filterMethod);
-  let calculateFilter = CalculateFilter(filterMethod);
-  data = SortingBasedOnConditionFunction(
+  let data = applyFilterMethods(filterMethod);
+  let totalApplyFilterCount = calculateFilter(filterMethod);
+  data = sortingBasedOnConditionFunction(
     data,
     sortBasedOnCondition,
     filterMethod.cagrYear
   );
-  console.log(filterMethod);
-
   return (
     <StrategyData.Provider
       value={{
         setfilterMethod,
         filterMethod,
-        calculateFilter,
+        totalApplyFilterCount,
         filterStratgey,
         setsortBasedOnCondition,
         sortBasedOnCondition,

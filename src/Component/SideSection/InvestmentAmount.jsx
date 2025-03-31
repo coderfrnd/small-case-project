@@ -9,7 +9,7 @@ const investmentArray = [
   { under: "Under", ruppess: 50000 },
 ];
 
-const InvestmentAmount = ({ setfilterMethod, filterMethod }) => {
+const InvestmentAmount = () => {
   return (
     <>
       <HeadingStrategy props="Investment Amount" />
