@@ -156,7 +156,7 @@ const Filter = () => {
             </div>
           </ul>
         </div>
-        <label className="flex items-center gap-2 px-3 py-2  bg-gray-100 border-b">
+        <label className="flex items-center gap-2 px-3 py-2  bg-white border-b">
           <svg
             className="h-[1em] opacity-50"
             xmlns="http://www.w3.org/2000/svg"
@@ -177,7 +177,7 @@ const Filter = () => {
             type="search"
             required
             placeholder="Search"
-            className="bg-transparent w-full border-none outline-none focus:ring-0"
+            className="bg-white w-full border-none outline-none focus:ring-0"
           />
         </label>
       </div>

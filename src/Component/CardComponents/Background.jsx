@@ -7,7 +7,7 @@ const Background = ({ data }) => {
   return (
     <>
       {/* <FilterMethods */}
-      <div className="w-[62%] mt-[32px] grid grid-cols-[22%_73%] gap-[5%]">
+      <div className="w-[62%] mt-[32px] grid grid-cols-[22%_73%] gap-[3%]">
         <SideSectionFilter />
         <CardHolder data={data} />
       </div>
