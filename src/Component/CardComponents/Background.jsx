@@ -1,7 +1,6 @@
 import React from "react";
 import CardHolder from "./CardHolder";
 import SideSectionFilter from "../SideSection/SideSectionFilter";
-import FilterMethods from "../Utils/FilterMethod.js";
 
 const Background = ({ data }) => {
   return (

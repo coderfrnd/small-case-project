@@ -8,7 +8,7 @@ const SubscriptionSection = () => {
   function handleSubscriptionClick(type) {
     setfilterMethod((prev) => ({
       ...prev,
-      Subscription: [type],
+      subscription: [type],
     }));
   }
 
@@ -20,7 +20,7 @@ const SubscriptionSection = () => {
         role="group"
       >
         {subscriptionList.map((ele, ind) => {
-          let isActive = ele == filterMethod.Subscription[0];
+          let isActive = ele == filterMethod.subscription[0];
           let activeExtraCss = isActive ? "text-blue-800  bg-blue-100" : "";
           return (
             <SubscriptionButtons

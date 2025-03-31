@@ -1,18 +1,15 @@
-import { useState } from "react";
-import ClipLoader from "react-spinners/ClipLoader";
-
+import { GridLoader, PuffLoader, ScaleLoader } from "react-spinners";
 const override = {
   display: "block",
-  margin: "100 auto",
+  margin: "300px",
 };
-
 const Spinner = ({ loading }) => {
   return (
-    <ClipLoader
+    <PuffLoader
       color="#4338ca"
       loading={loading}
       cssOverride={override}
-      size={150}
+      size={300}
     />
   );
 };

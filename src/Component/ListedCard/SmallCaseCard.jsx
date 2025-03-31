@@ -1,5 +1,5 @@
 import React from "react";
-import High from "../../JSON /High.png";
+import High from "/Json/High.png";
 const SmallCaseCard = ({
   heading,
   fundLogo,

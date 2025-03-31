@@ -1,5 +1,11 @@
 import React, { useContext, useState } from "react";
 import { StrategyData } from "../../App";
+import {
+  handleCagrYear,
+  handlePopularity,
+  handleRecentlyRebalanced,
+  handleSortingBasedOnMinimumAmount,
+} from "../Utils/HandleFilter";
 
 const Filter = () => {
   let {
@@ -9,63 +15,24 @@ const Filter = () => {
     sortBasedOnCondition,
   } = useContext(StrategyData);
 
-  function handlePopularity() {
-    setfilterMethod((prev) => ({
-      ...prev,
-      minimumAmount: false,
-      popualarity: true,
-      recentlyRebalanced: false,
-    }));
-    setsortBasedOnCondition((prev) => ({
-      ...prev,
-      active: false,
-      sortMethod: "High",
-      activeSortingWay: "Popularity",
-    }));
-  }
-  function handleSortingBasedOnMinimumAmount() {
-    setfilterMethod((prev) => ({
-      ...prev,
-      minimumAmount: true,
-      popualarity: false,
-      recentlyRebalanced: false,
-    }));
-    setsortBasedOnCondition((prev) => ({
-      ...prev,
-      active: false,
-      sortMethod: "High",
-      activeSortingWay: "Min Investment Amount",
-    }));
-  }
-  function handleCagrYear(year) {
-    setfilterMethod((prev) => ({ ...prev, cagrYear: year }));
-    setsortBasedOnCondition((prev) => ({
-      ...prev,
-      active: true,
-      sortMethod: "High",
-      activeSortingWay: "Cagr",
-    }));
-  }
-  function handleRecentlyRebalanced() {
-    setfilterMethod((prev) => ({
-      ...prev,
-      recentlyRebalanced: true,
-      minimumAmount: false,
-      popualarity: false,
-    }));
-    setsortBasedOnCondition((prev) => ({
-      ...prev,
-      active: false,
-      sortMethod: "High",
-      activeSortingWay: "Recently Rebalanced",
-    }));
-  }
   function activeSortingBasedOnCagr(value) {
     setsortBasedOnCondition((prev) => ({
       ...prev,
       sortMethod: value,
     }));
   }
+  const timePeriodOptions = [
+    { label: "1M", value: "monthly", display: "1 M returns" },
+    { label: "6M", value: "halfyearly", display: "6 M returns" },
+    { label: "1Y", value: "yearly", display: "1 Year CAGR" },
+    { label: "3Y", value: "threeYear", display: "3 Year CAGR" },
+    { label: "5Y", value: "fiveYear", display: "5 Year CAGR" },
+  ];
+
+  const sortingOptions = [
+    { label: "High To Low", value: "High" },
+    { label: "Low To High", value: "Low" },
+  ];
 
   return (
     <div className="w-[62%] mt-[16px] border-b border-gray-300 flex justify-between text-gray-600">
@@ -81,78 +48,75 @@ const Filter = () => {
             role="button"
             className="pt-1 border-none cursor-pointer px-3 flex justify-between"
           >
-            <span>{sortBasedOnCondition.activeSortingWay} </span>
+            <span>
+              {sortBasedOnCondition.activeSortingWay === "Cagr"
+                ? timePeriodOptions.find(
+                    (ele) => ele.value === filterMethod.cagrYear
+                  )?.display
+                : sortBasedOnCondition.activeSortingWay}{" "}
+            </span>
             <span>^</span>
           </div>
           <ul
             tabIndex={0}
             className="dropdown-content menu bg-base-100 rounded-box z-1 w-[220px] p-2 shadow-sm"
           >
-            <li className="flex" onClick={handlePopularity}>
+            <li
+              className="flex"
+              onClick={() =>
+                handlePopularity(setfilterMethod, setsortBasedOnCondition)
+              }
+            >
               <span>Popularity </span>
             </li>
-            <li onClick={handleSortingBasedOnMinimumAmount}>
+            <li
+              onClick={() =>
+                handleSortingBasedOnMinimumAmount(
+                  setfilterMethod,
+                  setsortBasedOnCondition
+                )
+              }
+            >
               <span>Minimum Amount</span>
             </li>
-            <li onClick={handleRecentlyRebalanced}>
+            <li
+              onClick={() =>
+                handleRecentlyRebalanced(
+                  setfilterMethod,
+                  setsortBasedOnCondition
+                )
+              }
+            >
               <span>Recently Rebalanced</span>
             </li>
             <span className="w-[100%] pl-3 font-bold mt-2">Time Period </span>
             <div className="w-[170px] cursor-pointer rounded ml-3 h-[20%]  font-medium flex border border-gray-200 p-1 mt-2 mb-2 justify-between">
-              <span
-                className="hover:bg-gray-200"
-                onClick={() => {
-                  handleCagrYear("monthly");
-                }}
-              >
-                1M
-              </span>
-              <span
-                className="hover:bg-gray-200"
-                onClick={() => {
-                  handleCagrYear("halfyearly");
-                }}
-              >
-                6M
-              </span>
-              <span
-                className="hover:bg-gray-200"
-                onClick={() => {
-                  handleCagrYear("yearly");
-                }}
-              >
-                1Y
-              </span>
-              <span
-                className="hover:bg-gray-200"
-                onClick={() => {
-                  handleCagrYear("threeYear");
-                }}
-              >
-                3Y
-              </span>
-              <span
-                className="hover:bg-gray-200"
-                onClick={() => {
-                  handleCagrYear("fiveYear");
-                }}
-              >
-                5Y
-              </span>
+              {timePeriodOptions.map(({ label, value }) => (
+                <span
+                  key={value}
+                  className="hover:bg-gray-200"
+                  onClick={() =>
+                    handleCagrYear(
+                      value,
+                      setfilterMethod,
+                      setsortBasedOnCondition
+                    )
+                  }
+                >
+                  {label}
+                </span>
+              ))}
             </div>
             <div className="w-[180px] cursor-pointer rounded ml-3 h-[20%]  font-medium flex  p-1 mt-2 mb-2 justify-between text-[11px] ">
-              <span
-                className="border border-gray-200 px-[10px] py-1"
-                onClick={() => activeSortingBasedOnCagr("High")}
-              >
-                High To Low
-              </span>
-              <span
-                className="border border-gray-200 px-[10px] py-1"
-                onClick={() => activeSortingBasedOnCagr("Low")}
-              >
-                Low To High
-              </span>
+              {sortingOptions.map(({ label, value }) => (
+                <span
+                  key={value}
+                  className="border border-gray-200 px-[10px] py-1"
+                  onClick={() => activeSortingBasedOnCagr(value)}
+                >
+                  {label}
+                </span>
+              ))}
             </div>
           </ul>
         </div>

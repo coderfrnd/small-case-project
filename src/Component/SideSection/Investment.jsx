@@ -6,7 +6,7 @@ const Investment = ({ ruppess, under }) => {
   function handleInvestmentAmount(amount) {
     setfilterMethod((prev) => ({
       ...prev,
-      InvestmentAmount: amount,
+      investmentAmount: amount,
     }));
   }
   return (
@@ -17,7 +17,7 @@ const Investment = ({ ruppess, under }) => {
             type="radio"
             name="investmentAmount"
             onChange={() => handleInvestmentAmount(ruppess ?? 0)}
-            checked={filterMethod.InvestmentAmount === (ruppess ?? 0)}
+            checked={filterMethod.investmentAmount === (ruppess ?? 0)}
             className="h-[15px] w-[15px] mt-[2px]"
             id={`investment-${ruppess}`}
           />

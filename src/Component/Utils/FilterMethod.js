@@ -1,6 +1,4 @@
-import AllData from "./FindStratgeyList.js";
-let data = AllData();
-function findSubscription(typeOfSubscription) {
+function findSubscription(typeOfSubscription, data) {
   if (typeOfSubscription[0] == "Show All") return data;
   let value = typeOfSubscription[0] == "Fee Based" ? true : false;
   let arr = data.filter((ele) => {
@@ -48,6 +46,8 @@ function investmentStragecy(listOfStrategy, otherFilterData) {
   });
 }
 function popularity(dataArray) {
+  console.log(dataArray);
+
   dataArray.sort(
     (a, b) => a.brokerMeta.flags.popular.rank - b.brokerMeta.flags.popular.rank
   );
@@ -68,14 +68,15 @@ function includeNewSmallCase(dataArray, specificTime) {
     return date.getTime() >= new Date(specificTime).getTime();
   });
 }
-export default function applyFilterMethods(filterList) {
+export default function applyFilterMethods(filterList, data) {
+  // console.log(data, "haaa");
+
   let arr = data;
   let answer = new Set();
-
-  arr = findSubscription(filterList.Subscription);
-  arr = investmentAmount(filterList.InvestmentAmount, arr);
-  arr = volatility(filterList.Volatility, arr);
-  arr = investmentStragecy(filterList.InvestmentStrategy, arr);
+  arr = findSubscription(filterList.subscription, data);
+  arr = investmentAmount(filterList.investmentAmount, arr);
+  arr = volatility(filterList.volatility, arr);
+  arr = investmentStragecy(filterList.investmentStrategy, arr);
   if (filterList.popualarity) popularity(arr);
   if (filterList.minimumAmount) minimumAmountSorting(arr);
   if (filterList.recentlyRebalanced) sortingBasedOnrecentlyRebalanced(arr);

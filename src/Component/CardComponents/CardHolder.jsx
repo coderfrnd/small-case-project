@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import SmallCaseCard from "../ListedCard/SmallCaseCard";
-import LogoURL from "../../JSON /LogoUrl";
+import LogoURL from "../Navbar/LogoUrl.js";
 import { StrategyData } from "../../App";
 import { cagrCalculate } from "../Utils/FindStratgeyList.js";
 const CardHolder = ({ data }) => {
   if (!data) data = [];
-  let { setfilterMethod, filterMethod } = useContext(StrategyData);
+  let { filterMethod } = useContext(StrategyData);
   return (
     <>
       <div className="w-[100%] h-full  space-y-2 flex flex-col items-center">

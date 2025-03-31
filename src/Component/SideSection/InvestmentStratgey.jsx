@@ -1,27 +1,37 @@
 import React, { useContext, useEffect, useState } from "react";
 import LaunchDate from "./LaunchDate";
 import { StrategyData } from "../../App";
-import { stratgeyList } from "../Utils/FindStratgeyList.js";
+import { strategyList } from "../Utils/FindStratgeyList.js";
 
 const InvestmentStratgey = () => {
-  let { setfilterMethod, filterMethod } = useContext(StrategyData);
+  let { setfilterMethod, filterMethod, filteredData } =
+    useContext(StrategyData);
+
+  const [investmentStrategies, setInvestmentStrategies] = useState([]);
 
   function handleInvestmentStratgey(val) {
     setfilterMethod((prev) => {
-      let arr = prev.InvestmentStrategy || [];
+      let arr = prev.investmentStrategy || [];
       let newArray = arr.includes(val)
         ? arr.filter((ele) => ele !== val)
         : [...arr, val];
-      return { ...prev, InvestmentStrategy: newArray };
+      return { ...prev, investmentStrategy: newArray };
     });
   }
 
-  const investmentStrategies = stratgeyList();
+  useEffect(() => {
+    const fetchData = async () => {
+      const strategies = await strategyList();
+      setInvestmentStrategies(strategies);
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       {investmentStrategies.map((ele, ind) => {
-        let checked = filterMethod.InvestmentStrategy.find(
-          (stratgey) => ele == stratgey
+        let checked = filterMethod.investmentStrategy.find(
+          (stratgey) => ele === stratgey
         );
         return (
           <LaunchDate

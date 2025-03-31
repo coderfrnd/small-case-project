@@ -1,7 +1,17 @@
-import smallCase from "../../JSON /smallcases.json";
-let data = smallCase.data;
-export default function AllData() {
-  return data;
+export async function fetchAllJsonData() {
+  try {
+    let res = await fetch("../../../public/Json/smallcases.json");
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
+    let data = await res.json();
+    // console.log(data, "klk");
+
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching JSON:", error);
+    return [];
+  }
 }
 let cagrYearObject = {
   threeYear: 3,
@@ -10,17 +20,22 @@ let cagrYearObject = {
   montly: false,
   halfYearly: false,
 };
-export function stratgeyList() {
+export async function strategyList() {
   let newSetForList = new Set();
+  let data = await fetchAllJsonData();
   data.forEach((ele) => {
-    let listOfStratgey = ele.info.investmentStrategy;
-    listOfStratgey.forEach((val) => {
+    let listOfStrategy = ele.info.investmentStrategy;
+    listOfStrategy.forEach((val) => {
       newSetForList.add(val.displayName);
     });
   });
 
   return Array.from(newSetForList);
 }
+
+// Usage:
+strategyList().then(console.log);
+
 export function calculateFilter(filterList) {
   let count = 0;
   for (let key in filterList) {
@@ -36,15 +51,17 @@ export function calculateFilter(filterList) {
     }
     let value = filterList[key];
     if (
-      (key === "Subscription" && value[0] === "Show All") ||
-      (key === "InvestmentAmount" && value === 0) ||
-      (key === "Volatility" && value.size === 0) ||
-      (key === "InvestmentStrategy" && value.length === 0) ||
+      (key === "subscription" && value[0] === "Show All") ||
+      (key === "investmentAmount" && value === 0) ||
+      (key === "volatility" && value.size === 0) ||
+      (key === "investmentStrategy" && value.length === 0) ||
       (key === "includeNewSmallcase" && !value)
     ) {
       continue;
     }
-    count++;
+    if (key === "volatility") count = count + value.size;
+    else if (key == "investmentStrategy") count = count + value.length;
+    else count++;
   }
   return count;
 }
@@ -63,7 +80,6 @@ export function sortingBasedOnConditionFunction(
   sortingConditionObject,
   year
 ) {
-  console.log(sortingConditionObject);
   if (!sortingConditionObject.active) return Array.from(dataArray);
   if (sortingConditionObject.sortMethod == "High") {
     return Array.from(dataArray).sort(
