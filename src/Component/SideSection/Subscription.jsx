@@ -8,7 +8,7 @@ const SubscriptionSection = () => {
   function handleSubscriptionClick(type) {
     setfilterMethod((prev) => ({
       ...prev,
-      subs: type === "Show All" ? null : type === "Free Access" ? false : true,
+      Subscription: [type],
     }));
   }
 
@@ -16,17 +16,22 @@ const SubscriptionSection = () => {
     <>
       <HeadingStrategy props={"Subscription Type"} />
       <div
-        className="flex border border-gray-200 w-[240px] rounded"
+        className="flex border border-gray-200 w-[240px] rounded text-gray-400"
         role="group"
       >
-        {subscriptionList.map((ele, ind) => (
-          <SubscriptionButtons
-            key={ind}
-            props={ele}
-            setfilterMethod={setfilterMethod}
-            handlefn={handleSubscriptionClick}
-          />
-        ))}
+        {subscriptionList.map((ele, ind) => {
+          let isActive = ele == filterMethod.Subscription[0];
+          let activeExtraCss = isActive ? "text-blue-800  bg-blue-100" : "";
+          return (
+            <SubscriptionButtons
+              key={ind}
+              props={ele}
+              setfilterMethod={setfilterMethod}
+              handlefn={handleSubscriptionClick}
+              activeExtraCss={activeExtraCss}
+            />
+          );
+        })}
       </div>
     </>
   );

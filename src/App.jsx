@@ -11,10 +11,9 @@ import ApplyFilterMethods from "./Component/Functions/FilterMethod";
 
 const StrategyData = createContext();
 let filterStratgey = {
-  subs: null,
+  Subscription: ["Show All"],
   InvestmentAmount: 0,
   Volatility: new Set(),
-  LaunchDate: [],
   InvestmentStrategy: [],
   popualarity: true,
   minimumAmount: false,
@@ -36,6 +35,8 @@ const App = () => {
     sortBasedOnCondition,
     filterMethod.cagrYear
   );
+  console.log(filterMethod);
+
   return (
     <StrategyData.Provider
       value={{

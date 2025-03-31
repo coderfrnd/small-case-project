@@ -1,9 +1,11 @@
 import AllData from "./FindStratgeyList";
 let data = AllData();
 let answer = new Set();
-function findSubscription(type) {
+function findSubscription(typeOfSubscription) {
+  if (typeOfSubscription[0] == "Show All") return data;
+  let value = typeOfSubscription[0] == "Fee Based" ? true : false;
   let arr = data.filter((ele) => {
-    if (ele.flags.private === type) {
+    if (ele.flags.private === value) {
       return true;
     }
   });
@@ -70,9 +72,8 @@ function IncludeNewSmallCase(dataArray, specificTime) {
 export default function ApplyFilterMethods(filterList) {
   let arr = data;
   let answer = new Set();
-  if (filterList.subs == true || filterList.subs == false) {
-    arr = findSubscription(filterList.subs);
-  }
+
+  arr = findSubscription(filterList.Subscription);
   arr = InvestmentAmount(filterList.InvestmentAmount, arr);
   arr = Volatility(filterList.Volatility, arr);
   arr = InvestmentStragecy(filterList.InvestmentStrategy, arr);

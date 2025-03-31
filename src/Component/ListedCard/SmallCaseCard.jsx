@@ -1,5 +1,5 @@
 import React from "react";
-
+import High from "../../JSON /High.png";
 const SmallCaseCard = ({
   heading,
   fundLogo,
@@ -49,9 +49,13 @@ const SmallCaseCard = ({
               {cagr}%
             </span>
           </div>
-          <button className="px-[10px] py-[3px] border border-gray-300 rounded-md">
-            {volatility}
-          </button>
+          <div className="px-2 py-1 border border-gray-300 rounded-md flex justify-center">
+            <img src={High} alt="" className="h-[24px] w-[24px]" />
+            <span className="text-sm pt-[2px]">
+              {" "}
+              {volatility.slice(0, 4)} Volatility{" "}
+            </span>
+          </div>
         </div>
       </section>
     </article>
