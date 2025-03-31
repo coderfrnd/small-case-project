@@ -1,6 +1,6 @@
 export async function fetchAllJsonData() {
   try {
-    let res = await fetch("../../../public/Json/smallcases.json?url");
+    let res = await fetch("/Json/smallcases.json?url");
     if (!res.ok) {
       throw new Error(`HTTP error! Status: ${res.status}`);
     }
