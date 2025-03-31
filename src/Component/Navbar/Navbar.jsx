@@ -1,6 +1,6 @@
 import React from "react";
-import logo from "../../../public/Json/logo.svg";
-import kite from "../../../public/Json/kite-logo.svg";
+import logo from "../../Assets/logo.svg";
+import kite from "../../Assets/kite-logo.svg";
 
 const Navbar = () => {
   return (
