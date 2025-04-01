@@ -10,11 +10,13 @@ const SmallCaseCard = ({
   cagr,
   year,
 }) => {
-  if (year == "threeYear") year = "3 Y";
-  if (year == "halfyearly") year = "6 M";
-  if (year == "yearly") year = "1 Y";
-  if (year == "fiveYear") year = "5 Y";
-  if (year == "monthly") year = "1 M";
+  let cagrYearObject = {
+    threeYear: "3 Y CAGR",
+    yearly: "1 Y CAGR",
+    fiveYear: "5 Y CAGR",
+    monthly: "1 M Returns",
+    halfyearly: "6 M Returns",
+  };
   return (
     <article className="w-full max-w-[1300px] border-b border-gray-300 hover:shadow-md bg-white flex text-gray-600 mt-2 mb-4 mx-auto">
       <section className=" pt-4 pl-2">
@@ -39,7 +41,7 @@ const SmallCaseCard = ({
           </div>
           <div className="flex flex-col text-center">
             <span className="text-gray-600 text-[15px] font-medium">
-              {year} CAGR
+              {cagrYearObject[year]}
             </span>
             <span
               className={`${

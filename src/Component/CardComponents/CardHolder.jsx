@@ -5,7 +5,7 @@ import { StrategyData } from "../../App";
 import { cagrCalculate } from "../Utils/FindStratgeyList.js";
 const CardHolder = ({ data }) => {
   if (!data) data = [];
-  let { filterMethod } = useContext(StrategyData);
+  let { sortBasedOnCondition } = useContext(StrategyData);
   return (
     <>
       <div className="w-[100%] h-full  space-y-2 flex flex-col items-center">
@@ -15,7 +15,7 @@ const CardHolder = ({ data }) => {
           minInvestment = minInvestment.toLocaleString("en-IN", {
             currency: "INR",
           });
-          let year = filterMethod.cagrYear;
+          let year = sortBasedOnCondition.cagrYear;
           let cagr = cagrCalculate(ele, year);
           cagr = cagr * 100;
           cagr = cagr.toFixed(2);

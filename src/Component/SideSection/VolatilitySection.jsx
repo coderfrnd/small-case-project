@@ -27,7 +27,7 @@ const VolatilitySection = () => {
         let isActive = filterMethod.volatility.has(ele + " Volatility");
         let activeExtraCss = isActive
           ? "border-2 py-4 mx-[2px] border-blue-600 bg-blue-100 text-blue-700"
-          : "border py-4 mx-[2px] border-gray-300 text-gray-400";
+          : "border py-4 mx-[2px] border-gray-400 text-gray-400";
 
         return (
           <SubscriptionButtons

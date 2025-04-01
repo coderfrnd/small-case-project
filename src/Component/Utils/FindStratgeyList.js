@@ -1,12 +1,10 @@
 export async function fetchAllJsonData() {
   try {
-    let res = await fetch("/Json/smallcases.json?url");
+    let res = await fetch("/Json/smallcases.json");
     if (!res.ok) {
       throw new Error(`HTTP error! Status: ${res.status}`);
     }
     let data = await res.json();
-    // console.log(data, "klk");
-
     return data.data;
   } catch (error) {
     console.error("Error fetching JSON:", error);
@@ -33,39 +31,25 @@ export async function strategyList() {
   return Array.from(newSetForList);
 }
 
-// Usage:
-strategyList().then(console.log);
-
 export function calculateFilter(filterList) {
   let count = 0;
   for (let key in filterList) {
-    if (
-      [
-        "popualarity",
-        "minimumAmount",
-        "cagrYear",
-        "recentlyRebalanced",
-      ].includes(key)
-    ) {
-      continue;
-    }
     let value = filterList[key];
     if (
-      (key === "subscription" && value[0] === "Show All") ||
-      (key === "investmentAmount" && value === 0) ||
-      (key === "volatility" && value.size === 0) ||
-      (key === "investmentStrategy" && value.length === 0) ||
-      (key === "includeNewSmallcase" && !value)
+      value[0] == "Show All" ||
+      value.length == 0 ||
+      value.size == 0 ||
+      value == false ||
+      0
     ) {
       continue;
     }
-    if (key === "volatility") count = count + value.size;
-    else if (key == "investmentStrategy") count = count + value.length;
+    if (value.length > 0) count = count + value.length;
+    else if (value.size > 0) count = count + value.size;
     else count++;
   }
   return count;
 }
-
 export function cagrCalculate(currentObj, selectedYear) {
   if (!cagrYearObject[selectedYear]) {
     return currentObj.stats.returns[selectedYear];
@@ -74,20 +58,52 @@ export function cagrCalculate(currentObj, selectedYear) {
   let b = 1 / cagrYearObject[selectedYear];
   return Math.pow(a, b) - 1;
 }
-
 export function sortingBasedOnConditionFunction(
   dataArray,
-  sortingConditionObject,
-  year
+  sortingConditionObject
 ) {
-  if (!sortingConditionObject.active) return Array.from(dataArray);
-  if (sortingConditionObject.sortMethod == "High") {
-    return Array.from(dataArray).sort(
-      (a, b) => b.stats.returns[year] - a.stats.returns[year]
+  let data = Array.from(dataArray);
+  console.log(sortingConditionObject);
+
+  if (sortingConditionObject.activeSortingWay === "Popularity") {
+    data = popularity(data);
+  }
+  if (sortingConditionObject.activeSortingWay === "Recently Rebalanced") {
+    data = sortingBasedOnrecentlyRebalanced(data);
+  }
+  if (sortingConditionObject.activeSortingWay === "Min Investment Amount") {
+    data = minimumAmountSorting(data);
+  }
+  if (sortingConditionObject.activeSortingWay === "Cagr") {
+    let year = sortingConditionObject.cagrYear;
+    data = sortingBasedOnHighAndLow(
+      data,
+      year,
+      sortingConditionObject.sortMethod
     );
+  }
+  return data;
+}
+function popularity(dataArray) {
+  return dataArray.sort(
+    (a, b) => a.brokerMeta.flags.popular.rank - b.brokerMeta.flags.popular.rank
+  );
+}
+function minimumAmountSorting(dataArray) {
+  return dataArray.sort(
+    (a, b) => a.stats.minInvestAmount - b.stats.minInvestAmount
+  );
+}
+function sortingBasedOnrecentlyRebalanced(dataArray) {
+  return dataArray.sort(
+    (a, b) => new Date(b.info.lastRebalanced) - new Date(a.info.lastRebalanced)
+  );
+}
+function sortingBasedOnHighAndLow(data, year, method) {
+  console.log(method, year);
+  if (method === "High") {
+    return data.sort((a, b) => b.stats.returns[year] - a.stats.returns[year]);
   } else {
-    return Array.from(dataArray).sort(
-      (a, b) => a.stats.returns[year] - b.stats.returns[year]
-    );
+    return data.sort((a, b) => a.stats.returns[year] - b.stats.returns[year]);
   }
 }

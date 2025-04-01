@@ -1,63 +1,33 @@
-export function handlePopularity(setfilterMethod, setsortBasedOnCondition) {
-  setfilterMethod((prev) => ({
-    ...prev,
-    minimumAmount: false,
-    popualarity: true,
-    recentlyRebalanced: false,
-  }));
-  setsortBasedOnCondition((prev) => ({
+export function handlePopularity(setSortBasedOnCondition) {
+  setSortBasedOnCondition((prev) => ({
     ...prev,
     active: false,
     sortMethod: "High",
     activeSortingWay: "Popularity",
   }));
 }
-export function handleSortingBasedOnMinimumAmount(
-  setfilterMethod,
-  setsortBasedOnCondition
-) {
-  setfilterMethod((prev) => ({
-    ...prev,
-    minimumAmount: true,
-    popualarity: false,
-    recentlyRebalanced: false,
-  }));
-  setsortBasedOnCondition((prev) => ({
+export function handleSortingBasedOnMinimumAmount(setSortBasedOnCondition) {
+  setSortBasedOnCondition((prev) => ({
     ...prev,
     active: false,
     sortMethod: "High",
     activeSortingWay: "Min Investment Amount",
   }));
 }
-export function handleCagrYear(year, setfilterMethod, setsortBasedOnCondition) {
-  setfilterMethod((prev) => ({ ...prev, cagrYear: year }));
-  setsortBasedOnCondition((prev) => ({
+export function handleCagrYear(year, setSortBasedOnCondition) {
+  setSortBasedOnCondition((prev) => ({
     ...prev,
     active: true,
     sortMethod: "High",
     activeSortingWay: "Cagr",
+    cagrYear: year,
   }));
 }
-export function handleRecentlyRebalanced(
-  setfilterMethod,
-  setsortBasedOnCondition
-) {
-  setfilterMethod((prev) => ({
-    ...prev,
-    recentlyRebalanced: true,
-    minimumAmount: false,
-    popualarity: false,
-  }));
-  setsortBasedOnCondition((prev) => ({
+export function handleRecentlyRebalanced(setSortBasedOnCondition) {
+  setSortBasedOnCondition((prev) => ({
     ...prev,
     active: false,
     sortMethod: "High",
     activeSortingWay: "Recently Rebalanced",
-  }));
-}
-export function activeSortingBasedOnCagr(value) {
-  setsortBasedOnCondition((prev) => ({
-    ...prev,
-    sortMethod: value,
   }));
 }

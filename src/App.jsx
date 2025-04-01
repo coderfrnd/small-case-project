@@ -18,54 +18,50 @@ let filterStratgey = {
   investmentAmount: 0,
   volatility: new Set(),
   investmentStrategy: [],
-  popualarity: true,
-  minimumAmount: false,
-  cagrYear: "threeYear",
-  recentlyRebalanced: false,
   includeNewSmallcase: false,
 };
-
+let sortStratgey = {
+  sortMethod: null,
+  active: false,
+  activeSortingWay: "Popularity",
+  cagrYear: "threeYear",
+};
 const App = () => {
   const [filterMethod, setfilterMethod] = useState(filterStratgey);
-  const [sortBasedOnCondition, setsortBasedOnCondition] = useState({
-    sortMethod: null,
-    active: false,
-    activeSortingWay: "Popularity",
-  });
-  const [filteredData, setFilteredData] = useState([]);
-  const [totalApplyFilterCount, setTotalApplyFilterCount] = useState(0);
+  const [sortBasedOnCondition, setSortBasedOnCondition] =
+    useState(sortStratgey);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     async function fetchAllSmallCaseData() {
       try {
         let data = await fetchAllJsonData();
-        let filtered = applyFilterMethods(filterMethod, data);
-        let totalFilters = calculateFilter(filterMethod);
-        filtered = sortingBasedOnConditionFunction(
-          filtered,
-          sortBasedOnCondition,
-          filterMethod.cagrYear,
-          data
-        );
-        setFilteredData(filtered);
-        setTotalApplyFilterCount(totalFilters);
+        setData(data);
       } catch (error) {
         console.log("Error in fetching Data", error);
       }
     }
     fetchAllSmallCaseData();
-  }, [filterMethod, sortBasedOnCondition]);
+  }, []);
 
+  let filteredData = applyFilterMethods(filterMethod, data);
+  filteredData = sortingBasedOnConditionFunction(
+    filteredData,
+    sortBasedOnCondition
+  );
+
+  let filterCount = calculateFilter(filterMethod);
   return (
     <StrategyData.Provider
       value={{
         setfilterMethod,
         filterMethod,
-        totalApplyFilterCount,
+        filterCount,
         filterStratgey,
-        setsortBasedOnCondition,
+        setSortBasedOnCondition,
         sortBasedOnCondition,
         filteredData,
+        sortStratgey,
       }}
     >
       <div className="relative w-full bg-white h-full">

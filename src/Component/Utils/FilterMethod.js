@@ -45,21 +45,6 @@ function investmentStragecy(listOfStrategy, otherFilterData) {
     if (check) return check;
   });
 }
-function popularity(dataArray) {
-  console.log(dataArray);
-
-  dataArray.sort(
-    (a, b) => a.brokerMeta.flags.popular.rank - b.brokerMeta.flags.popular.rank
-  );
-}
-function minimumAmountSorting(dataArray) {
-  dataArray.sort((a, b) => a.stats.minInvestAmount - b.stats.minInvestAmount);
-}
-function sortingBasedOnrecentlyRebalanced(dataArray) {
-  dataArray.sort(
-    (a, b) => new Date(b.info.lastRebalanced) - new Date(a.info.lastRebalanced)
-  );
-}
 function includeNewSmallCase(dataArray, specificTime) {
   return dataArray.filter((ele) => {
     let launchDate = ele.info.created;
@@ -69,17 +54,12 @@ function includeNewSmallCase(dataArray, specificTime) {
   });
 }
 export default function applyFilterMethods(filterList, data) {
-  // console.log(data, "haaa");
-
   let arr = data;
   let answer = new Set();
   arr = findSubscription(filterList.subscription, data);
   arr = investmentAmount(filterList.investmentAmount, arr);
   arr = volatility(filterList.volatility, arr);
   arr = investmentStragecy(filterList.investmentStrategy, arr);
-  if (filterList.popualarity) popularity(arr);
-  if (filterList.minimumAmount) minimumAmountSorting(arr);
-  if (filterList.recentlyRebalanced) sortingBasedOnrecentlyRebalanced(arr);
   if (filterList.includeNewSmallcase)
     arr = includeNewSmallCase(arr, "2023-01-01");
   arr.forEach((ele) => {
