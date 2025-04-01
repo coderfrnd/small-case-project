@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import Navbar from "./Component/Navbar/Navbar";
-import Filter from "./Component/CardComponents/Filter";
+import SortingDrowdown from "./Component/CardComponents/SortingDropdown.jsx";
 import Discover from "./Component/CardComponents/Discover";
 import Background from "./Component/CardComponents/Background";
 import {
@@ -68,7 +68,7 @@ const App = () => {
         <Navbar />
         <div className="mt-[88px] flex justify-center flex-col items-center">
           <Discover />
-          <Filter />
+          <SortingDrowdown />
           {filteredData.length ? (
             <Background data={filteredData} />
           ) : (

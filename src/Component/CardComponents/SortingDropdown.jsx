@@ -15,7 +15,7 @@ const cagrYearLabels = {
   fiveYear: "5 Year CAGR",
 };
 
-const Filter = () => {
+const SortingDropdown = () => {
   let { setSortBasedOnCondition, sortBasedOnCondition } =
     useContext(StrategyData);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -148,4 +148,4 @@ const Filter = () => {
   );
 };
 
-export default Filter;
+export default SortingDropdown;

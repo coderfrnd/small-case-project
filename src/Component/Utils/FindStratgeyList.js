@@ -30,7 +30,6 @@ export async function strategyList() {
 
   return Array.from(newSetForList);
 }
-
 export function calculateFilter(filterList) {
   let count = 0;
   for (let key in filterList) {
