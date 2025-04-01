@@ -1,15 +1,15 @@
-import { GridLoader, PuffLoader, ScaleLoader } from "react-spinners";
+import { MoonLoader } from "react-spinners";
 const override = {
   display: "block",
-  margin: "300px",
+  margin: "100px",
 };
 const Spinner = ({ loading }) => {
   return (
-    <PuffLoader
+    <MoonLoader
       color="#4338ca"
       loading={loading}
       cssOverride={override}
-      size={300}
+      size={200}
     />
   );
 };

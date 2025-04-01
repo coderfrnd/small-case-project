@@ -54,11 +54,14 @@ const SortingDropdown = () => {
             className="pt-1 border-none cursor-pointer px-3 flex justify-between"
             onClick={() => setIsDropdownOpen((prev) => !prev)}
           >
-            <span>
-              {sortBasedOnCondition.active && sortBasedOnCondition.cagrYear
-                ? cagrYearLabels[sortBasedOnCondition.cagrYear]
-                : sortBasedOnCondition.activeSortingWay}
-            </span>
+            <div className="flex space-x-2 text-[14px] text-gray-400 pt-3">
+              <span className="font-extrabold text-nowrap">Sorted By</span>
+              <span className="text-nowrap">
+                {sortBasedOnCondition.active && sortBasedOnCondition.cagrYear
+                  ? cagrYearLabels[sortBasedOnCondition.cagrYear]
+                  : sortBasedOnCondition.activeSortingWay}
+              </span>
+            </div>
             <span
               className={`transform transition-transform duration-300 ${
                 isDropdownOpen ? "rotate-0" : "rotate-180"
@@ -95,7 +98,7 @@ const SortingDropdown = () => {
                 {timePeriodOptions.map(({ label, value }) => (
                   <span
                     key={value}
-                    className="hover:bg-gray-200"
+                    className="hover:bg-gray-100"
                     onClick={() =>
                       handleCagrYear(value, setSortBasedOnCondition)
                     }

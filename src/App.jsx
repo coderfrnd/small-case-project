@@ -7,8 +7,10 @@ import {
   calculateFilter,
   fetchAllJsonData,
   sortingBasedOnConditionFunction,
+  strategyList,
 } from "./Component/Utils/FindStratgeyList.js";
 import applyFilterMethods from "./Component/Utils/FilterMethod.js";
+import Spinner from "./Component/ListedCard/Loader.jsx";
 
 const StrategyData = createContext();
 
@@ -29,26 +31,30 @@ const App = () => {
   const [filterMethod, setfilterMethod] = useState(filterStratgey);
   const [sortBasedOnCondition, setSortBasedOnCondition] =
     useState(sortStratgey);
-  const [data, setData] = useState([]);
-
+  const [data, setData] = useState({
+    responseData: [],
+    investmentStrategiesList: [],
+  });
   useEffect(() => {
     async function fetchAllSmallCaseData() {
       try {
         let data = await fetchAllJsonData();
-        setData(data);
+        let strategies = await strategyList();
+        setData((prev) => ({
+          responseData: data,
+          investmentStrategiesList: strategies,
+        }));
       } catch (error) {
         console.log("Error in fetching Data", error);
       }
     }
     fetchAllSmallCaseData();
   }, []);
-
-  let filteredData = applyFilterMethods(filterMethod, data);
+  let filteredData = applyFilterMethods(filterMethod, data.responseData);
   filteredData = sortingBasedOnConditionFunction(
     filteredData,
     sortBasedOnCondition
   );
-
   let filterCount = calculateFilter(filterMethod);
   return (
     <StrategyData.Provider
@@ -61,6 +67,7 @@ const App = () => {
         sortBasedOnCondition,
         filteredData,
         sortStratgey,
+        investmentStrategies: data.investmentStrategiesList,
       }}
     >
       <div className="relative w-full bg-white h-full">
@@ -68,7 +75,7 @@ const App = () => {
         <div className="mt-[88px] flex justify-center flex-col items-center">
           <Discover />
           <SortingDrowdown />
-          <Background data={filteredData} />
+          {data.responseData.length > 0 ? <Background /> : <Spinner />}
         </div>
       </div>
     </StrategyData.Provider>

@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import CardHolder from "./CardHolder";
 import SideSectionFilter from "../SideSection/SideSectionFilter";
+import { StrategyData } from "../../App";
 
-const Background = ({ data }) => {
+const Background = () => {
+  let { filteredData } = useContext(StrategyData);
   return (
     <>
       <div className="w-[1180px] mt-[32px] grid grid-cols-[22%_73%] gap-[3%]">
         <SideSectionFilter />
-        {data.length > 0 ? (
-          <CardHolder data={data} />
+        {filteredData.length > 0 ? (
+          <CardHolder />
         ) : (
           <h1 className="flex justify-center text-center">
             NO SMALL CASE FOUND

@@ -1,13 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import LaunchDate from "./LaunchDate";
 import { StrategyData } from "../../App";
-import { strategyList } from "../Utils/FindStratgeyList.js";
-
 const InvestmentStratgey = () => {
-  let { setfilterMethod, filterMethod, filteredData } =
+  let { setfilterMethod, filterMethod, investmentStrategies } =
     useContext(StrategyData);
-
-  const [investmentStrategies, setInvestmentStrategies] = useState([]);
 
   function handleInvestmentStratgey(val) {
     setfilterMethod((prev) => {
@@ -18,14 +14,6 @@ const InvestmentStratgey = () => {
       return { ...prev, investmentStrategy: newArray };
     });
   }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const strategies = await strategyList();
-      setInvestmentStrategies(strategies);
-    };
-    fetchData();
-  }, []);
 
   return (
     <>
