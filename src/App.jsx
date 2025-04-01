@@ -9,7 +9,6 @@ import {
   sortingBasedOnConditionFunction,
 } from "./Component/Utils/FindStratgeyList.js";
 import applyFilterMethods from "./Component/Utils/FilterMethod.js";
-import Spinner from "./Component/ListedCard/Loader.jsx";
 
 const StrategyData = createContext();
 
@@ -69,11 +68,7 @@ const App = () => {
         <div className="mt-[88px] flex justify-center flex-col items-center">
           <Discover />
           <SortingDrowdown />
-          {filteredData.length ? (
-            <Background data={filteredData} />
-          ) : (
-            <Spinner />
-          )}
+          <Background data={filteredData} />
         </div>
       </div>
     </StrategyData.Provider>
